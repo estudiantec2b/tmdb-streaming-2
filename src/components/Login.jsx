@@ -1,39 +1,55 @@
 import React, { useState } from 'react';
-import { login } from '../services/auth';
+import { useAuth } from '../context/AuthContext';
 
-const Login = ({ onLoginSuccess }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const Login = () => {
+  const { user, login, logout } = useAuth();
+  const [form, setForm] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleChange = e => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = e => {
     e.preventDefault();
-    if (login(username, password)) {
-      onLoginSuccess();
+    const success = login(form.username, form.password);
+    if (!success) {
+      setError('Usuario o contraseña incorrectos');
     } else {
-      setError('Credenciales incorrectas');
+      setError('');
     }
   };
 
+  if (user) {
+    return (
+      <div style={{ color: 'white' }}>
+        <p>Bienvenido, {user.name}!</p>
+        <button onClick={logout}>Cerrar sesión</button>
+      </div>
+    );
+  }
+
   return (
-    <div className="login">
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Usuario"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {error && <div className="error">{error}</div>}
-        <button type="submit">Iniciar sesión</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit} style={{ color: 'white' }}>
+      <input
+        type="text"
+        name="username"
+        placeholder="Usuario"
+        value={form.username}
+        onChange={handleChange}
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Contraseña"
+        value={form.password}
+        onChange={handleChange}
+        required
+      />
+      <button type="submit">Iniciar sesión</button>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+    </form>
   );
 };
 
