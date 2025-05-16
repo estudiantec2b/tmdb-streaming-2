@@ -11,8 +11,26 @@
   border-bottom: 2px solid #444;
 }
 
+.movie-card:hover img {
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+}
+
+
 .movie-card h3 {
   font-size: 14px;
   padding: 10px;
   color: #fff;
+}
+
+/* src/styles/MovieCard.css */
+.movie-card {
+  min-width: 150px;
+  flex: 0 0 auto;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+  z-index: 2;
 }
