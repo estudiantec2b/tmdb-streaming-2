@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // src/components/MovieRow.jsx
 import React from 'react';
 import MovieCard from './MovieCard';
@@ -19,9 +20,27 @@ const MovieRow = ({ genreId, genreName }) => {
             <MovieCard key={movie.id} movie={movie} />
           ) : null
         )}
+=======
+import React from 'react';
+import MovieCard from './MovieCard';
+import '../styles/Home.css';
+
+const MovieRow = ({ title, movies }) => {
+  return (
+    <div className="movie-row">
+      <h3 className="genre-title">{title}</h3>
+      <div className="movie-row-content">
+        {movies.map((movie) => (
+          <MovieCard key={movie.id} movie={movie} />
+        ))}
+>>>>>>> main
       </div>
     </div>
   );
 };
 
+<<<<<<< HEAD
 export default MovieRow;
+=======
+export default MovieRow;
+>>>>>>> main

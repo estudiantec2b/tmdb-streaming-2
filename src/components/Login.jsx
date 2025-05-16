@@ -1,37 +1,29 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { login } from '../services/auth';
 
-const Login = ({ onLoginSuccess }) => {
-  const [username, setUsername] = useState('');
+const Login = () => {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    if (login(username, password)) {
-      onLoginSuccess();
+    const success = login(email, password);
+    if (success) {
+      navigate('/');
     } else {
-      setError('Credenciales incorrectas');
+      alert('Credenciales inválidas');
     }
   };
 
   return (
-    <div className="login">
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Usuario"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {error && <div className="error">{error}</div>}
-        <button type="submit">Iniciar sesión</button>
+    <div className="container mt-5">
+      <h2>Iniciar Sesión</h2>
+      <form onSubmit={handleLogin}>
+        <input type="email" placeholder="Correo" className="form-control mb-3" value={email} onChange={e => setEmail(e.target.value)} required />
+        <input type="password" placeholder="Contraseña" className="form-control mb-3" value={password} onChange={e => setPassword(e.target.value)} required />
+        <button className="btn btn-primary">Ingresar</button>
       </form>
     </div>
   );

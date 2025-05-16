@@ -1,33 +1,19 @@
-import { useEffect, useState } from "react";
-import { getGenres, getMoviesByGenre } from "../services/api";
-import MovieRow from "./MovieRow";
+import React, { useEffect, useState } from 'react';
+import MovieRow from './MovieRow';
+import { getMoviesByGenre } from '../services/api';
 
-const GenreRows = () => {
-  const [genres, setGenres] = useState([]);
+const GenreRow = ({ genre }) => {
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    const loadGenres = async () => {
-      try {
-        const data = await getGenres();
-        setGenres(data);
-      } catch (error) {
-        console.error("Error al cargar géneros:", error);
-      }
+    const fetchMovies = async () => {
+      const data = await getMoviesByGenre(genre.id);
+      setMovies(data);
     };
-    loadGenres();
-  }, []);
+    fetchMovies();
+  }, [genre]);
 
-  return (
-    <>
-      {genres.map((genre) => (
-        <MovieRow
-          key={genre.id}
-          title={genre.name}
-          fetchMovies={() => getMoviesByGenre(genre.id)}
-        />
-      ))}
-    </>
-  );
+  return <MovieRow title={genre.name} movies={movies} />;
 };
 
-export default GenreRows;
+export default GenreRow;

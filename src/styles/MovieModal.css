@@ -1,0 +1,46 @@
+.movie-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.movie-modal {
+  background-color: #111;
+  color: white;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 90%;
+  padding: 1rem;
+  box-shadow: 0 0 10px #000;
+  position: relative;
+}
+
+.modal-content {
+  padding: 1rem;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+}
+
+.modal-content p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.modal-content button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: red;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
