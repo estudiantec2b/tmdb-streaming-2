@@ -15,9 +15,10 @@ const Navbar = () => {
     <nav className="navbar navbar-dark bg-dark px-3">
       <Link to="/" className="navbar-brand">
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png"
+          src="./public/images/logo-peliverse.png"
           alt="Logo"
-          height="30"
+          height="50"
+          style={{backgroundColor: 'white'}}
         />
       </Link>
 
