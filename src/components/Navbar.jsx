@@ -1,32 +1,46 @@
-import React from 'react';
 import './Navbar.css';
-import { FaSearch, FaUser, FaGlobe } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import { useMovieContext } from '../context/MovieContext';
 
 const Navbar = () => {
+  const { user, setUser } = useMovieContext();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setUser(null);
+    navigate('/');
+  };
+
   return (
-    <nav className="navbar container-fluid">
-      <div className="navbar-left">
+    <nav className="navbar navbar-dark bg-dark px-3">
+      <Link to="/" className="navbar-brand">
         <img
-          src="/images/logo-peliverse.png"
-          alt="logo peliverse"
-          className="navbar-logo"
+          src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png"
+          alt="Logo"
+          height="30"
         />
-      </div>
+      </Link>
 
-      <div className="navbar-center">
-        <div className="search-bar">
-          <FaSearch className="search-icon" />
-          <input type="text" placeholder="Buscar películas..." />
-        </div>
-      </div>
+      <div className="d-flex align-items-center gap-3">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Buscar..."
+          style={{ maxWidth: 200 }}
+        />
 
-      <div className="navbar-right">
-        <button className="btn btn-outline-light btn-sm">
-          <FaUser style={{ marginRight: '5px' }} /> Iniciar sesión
-        </button>
-        <button className="btn btn-outline-light btn-sm mx-2">
-          <FaGlobe style={{ marginRight: '5px' }} /> ES
-        </button>
+        {user ? (
+          <>
+            <span className="text-white">Hola, {user.username}</span>
+            <button onClick={handleLogout} className="btn btn-outline-light btn-sm">
+              Cerrar sesión
+            </button>
+          </>
+        ) : (
+          <Link to="/login" className="btn btn-outline-light btn-sm">
+            Iniciar sesión
+          </Link>
+        )}
       </div>
     </nav>
   );
