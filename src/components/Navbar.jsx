@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Navbar.css';
 import { FaSearch, FaUser, FaGlobe } from 'react-icons/fa';
 import LoginModal from './LoginModal';
+import { Link } from 'react-router-dom'; 
 
 const Navbar = () => {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -42,7 +43,14 @@ const Navbar = () => {
             alt="logo peliverse"
             className="navbar-logo"
           />
+          <Link to="/" className="btn btn-link text-white text-decoration-none me-2">Inicio</Link>
+          {loggedInUser && (
+            <Link to="/favoritos" className="btn btn-link text-white text-decoration-none">Favoritos</Link>
+          )}
         </div>
+
+        
+
 
         <div className="navbar-center">
           <div className="search-bar">

@@ -1,0 +1,44 @@
+.movie-row-container {
+  padding: 0 40px;
+}
+
+.movie-row-scroll {
+  scroll-behavior: smooth;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.movie-row-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.movie-row-scroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 2rem;
+  border: none;
+  padding: 0 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.scroll-btn.left {
+  left: 0;
+}
+
+.scroll-btn.right {
+  right: 0;
+}
+
+.scroll-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}

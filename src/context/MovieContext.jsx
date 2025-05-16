@@ -1,4 +1,3 @@
-// src/context/MovieContext.jsx
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { getGenres, getMoviesByGenre } from '../services/api';
 
@@ -9,7 +8,13 @@ export const MovieProvider = ({ children }) => {
   const [genres, setGenres] = useState([]);
   const [moviesByGenre, setMoviesByGenre] = useState({});
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const [heroMovies, setHeroMovies] = useState([]); // CAMBIO: ahora un array
+  const [heroMovies, setHeroMovies] = useState([]);
+
+  // Estado y función para favoritos (guardados en localStorage)
+  const [favorites, setFavorites] = useState(() => {
+    const favs = localStorage.getItem('favorites');
+    return favs ? JSON.parse(favs) : [];
+  });
 
   useEffect(() => {
     const loadGenresAndMovies = async () => {
@@ -24,14 +29,13 @@ export const MovieProvider = ({ children }) => {
           const genreMovies = await getMoviesByGenre(genre.id);
           movies[genre.id] = genreMovies;
 
-          // Elegimos una película de cada género para el slider (opcional)
           if (genreMovies.length > 0) {
             featured.push(genreMovies[0]);
           }
         }
 
         setMoviesByGenre(movies);
-        setHeroMovies(featured); // CAMBIO
+        setHeroMovies(featured);
       } catch (error) {
         console.error('Error loading genres and movies:', error);
       }
@@ -40,6 +44,18 @@ export const MovieProvider = ({ children }) => {
     loadGenresAndMovies();
   }, []);
 
+  // Función para agregar/quitar favoritos
+  const toggleFavorite = (movie) => {
+    let updatedFavorites;
+    if (favorites.find((fav) => fav.id === movie.id)) {
+      updatedFavorites = favorites.filter((fav) => fav.id !== movie.id);
+    } else {
+      updatedFavorites = [...favorites, movie];
+    }
+    setFavorites(updatedFavorites);
+    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+  };
+
   return (
     <MovieContext.Provider
       value={{
@@ -47,7 +63,10 @@ export const MovieProvider = ({ children }) => {
         moviesByGenre,
         selectedMovie,
         setSelectedMovie,
-        heroMovies, // CAMBIO
+        heroMovies,
+        favorites,
+        toggleFavorite,
+        isFavorite: (movieId) => favorites.some((fav) => fav.id === movieId),
       }}
     >
       {children}

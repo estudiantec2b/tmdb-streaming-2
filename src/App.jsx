@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Login from "./components/Login";
-import { MovieProvider } from "./context/MovieContext"; // 👈 Importa el provider
+import { MovieProvider } from "./context/MovieContext";
+import Favorites from "./pages/Favorites";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/favoritos" element={<Favorites />} />
         </Routes>
       </MovieProvider>
     </Router>

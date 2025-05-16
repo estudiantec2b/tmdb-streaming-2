@@ -1,0 +1,12 @@
+.favorites-page {
+  background-color: #121212;
+  min-height: 100vh;
+  color: white;
+  padding-top: 4rem; /* para que no tape el navbar */
+}
+
+/* Si usas Bootstrap, puedes añadir esto para que los textos sean blancos en general */
+.favorites-page h2,
+.favorites-page p {
+  color: white;
+}
